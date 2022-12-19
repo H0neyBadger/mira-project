@@ -99,7 +99,7 @@ endif
 post-build: main-build
 	@echo "Post-Build"
 	@echo "Linking $(PROJ_NAME)..."
-	@$(LNK) $(ALL_OBJ) -o $(OUT_DIR)/$(TARGET) $(LFLAGS) $(LIBS)
+	@$(LNK) $(ALL_OBJ) -o $(OUT_DIR)/$(TARGET) -g $(LFLAGS) $(LIBS)
 	@echo "Creating Payload..."
 	@$(OBJCOPY) -O binary $(OUT_DIR)/$(TARGET) $(OUT_DIR)/$(PAYLOAD)
 

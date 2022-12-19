@@ -48,7 +48,7 @@ LIBS	:= -lc -lkernel -lc++ -lSceNet
 C_DEFS	:= -D_DEBUG -DPS4 -D__BSD_VISIBLE -D_BSD_SOURCE
 
 # C++ Flags
-CFLAGS	:= -cc1 -triple x86_64-pc-freebsd-elf -munwind-tables $(I_DIRS) $(C_DEFS) -fuse-init-array -emit-obj
+CFLAGS	:= -cc1 -triple x86_64-pc-freebsd-elf $(I_DIRS) $(C_DEFS) -emit-obj
 
 # Assembly flags
 SFLAGS	:= -m64 -nodefaultlibs -nostdlib
@@ -87,7 +87,7 @@ TARGET = eboot.bin
 
 $(TARGET): pre-run $(OUT_DIR) $(ALL_OBJ)
 	$(LNK) $(ALL_OBJ) -o $(OUT_DIR)/$(PROJ_NAME).elf $(LFLAGS)
-	$(OO_PS4_TOOLCHAIN)/bin/$(OS_NAME)/create-eboot -in=$(OUT_DIR)/$(PROJ_NAME).elf -out=$(OUT_DIR)/$(PROJ_NAME).oelf --paid 0x3800000000000011
+	$(OO_PS4_TOOLCHAIN)/bin/$(OS_NAME)/create-fself -in=$(OUT_DIR)/$(PROJ_NAME).elf -out=$(OUT_DIR)/$(PROJ_NAME).oelf --eboot $(TARGET) --paid 0x3800000000000011
 
 pre-run:
 	@mkdir -p $(shell find '$(SRC_DIR)/' -type d -printf '$(OUT_DIR)/%p\n')
